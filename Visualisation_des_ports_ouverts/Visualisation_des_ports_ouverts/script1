@@ -1,0 +1,9 @@
+#!/bin/bash
+if test -z "$1" 
+then
+     echo "Attention il faut definir en paramètre le nom du fichier xml généré par nmap avec l'option -oX"
+else
+echo -e "Port\\tNb_station" >data.tsv
+grep portid $1 | cut -d ' ' -f3 | cut -d '"' -f2 | sort -n |uniq -c | awk -F' ' '{ print $1 " " $2 }' | sed -e 's/ /\t/g' >>data.tsv 
+firefox Bar.html
+fi
