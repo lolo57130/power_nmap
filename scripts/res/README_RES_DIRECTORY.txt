@@ -1,0 +1,1 @@
+This directory is intented to store all resources that will be used by scripts
