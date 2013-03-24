@@ -40,7 +40,3 @@ done;
 
 echo -e "Hosts	Port" > $OUTPUT_FILE
 grep portid $INPUT_FILE | cut -d ' ' -f3 | cut -d '"' -f2 | sort -n | uniq -c | awk -F' ' '{ print $1 " " $2 }' | sed -e 's/ /\t/g' >> $OUTPUT_FILE
-
-# à changer : ne pas ouvrir le navigateur (qui n'est pas forcément firefox, ni installé localement, ni graphique (cas d'une console d'administration d'un serveur web)).
-# A la place, générer tous les fichiers nécessaires dans un dossier spécifié par l'utilisateur
-# firefox Bar.html
