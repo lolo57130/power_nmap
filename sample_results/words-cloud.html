@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Words Cloud</title>
+</head>
+<body>
+<h1>Words Cloud</h1>
+<div id="vis"></div>
+<!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+<script src="d3.min.js"></script>
+<script src="d3.layout.cloud.js"></script>
+<script>
+
+var h=600, w=800;
+
+  var fill = d3.scale.category20();
+
+  var cloud=d3.layout.cloud().size([w, h])
+      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .font("Impact")
+      .fontSize(function(d) { return d.size; })
+      .on("end", draw);
+
+  function draw(words) {
+    d3.select("body").append("svg")
+        .attr("width", w)
+        .attr("height", h)
+      .append("g")
+        .attr("transform", "translate("+(w/2)+","+(h/2)+")")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .style("font-size", function(d) { return d.size + "px"; })
+        .style("font-family", "Impact")
+        .style("fill", function(d, i) { return fill(i); })
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .text(function(d) { return d.text; });
+  }
+
+var words=[];
+  
+function validate()
+{
+	cloud.words(words.map(function(d) {
+        return {text: d.split('-')[1], size: 12 * (1 + Math.log(d.split('-')[0]))};
+      }));
+	cloud.start();
+}
+words.push("42-protocol");
+words.push("3-routersetup");
+words.push("1-domain");
+words.push("4-rpcbind");
+words.push("8-HP");
+words.push("2-HP");
+words.push("315-msrpc");
+words.push("1-xrdp");
+words.push("1-HP");
+words.push("4-flexlm");
+words.push("20-Uses");
+words.push("1-echo");
+words.push("64-netbios-ssn");
+words.push("2-vsftpd");
+words.push("1-ipp");
+words.push("3-Nortel/D-Link");
+words.push("1-HP");
+words.push("4-workgroup:");
+words.push("5-SafeNet");
+words.push("1-CUPS");
+words.push("34-vnc");
+words.push("1-svnserve");
+words.push("7-ftp");
+words.push("3-Virata-EmWeb");
+words.push("17-VNC");
+words.push("49-microsoft-rdp");
+words.push("42-OpenSSH");
+words.push("1-connection");
+words.push("2-HP");
+words.push("8-unknown");
+words.push("4-Apache");
+words.push("315-Microsoft");
+words.push("392-Windows");
+words.push("1-dhttpd");
+words.push("3-Aladdin");
+words.push("1-dnsmasq");
+words.push("5-HP-ChaiSOE");
+words.push("6-D-Link");
+words.push("23-SSDP/UPnP");
+words.push("4-Samba");
+words.push("22-printer");
+words.push("59-http");
+words.push("2-Microsoft");
+words.push("2-HP");
+words.push("5-Java");
+words.push("1-(Debian)");
+words.push("23-Microsoft");
+words.push("4-telnet");
+words.push("17-protocol");
+words.push("1-Linux");
+words.push("42-ssh");
+words.push("20-vmware-auth");
+words.push("20-VMware");
+words.push("2-microsoft-ds");
+words.push("3-(Mandriva");
+words.push("1-Subversion");
+words.push("3-HP");
+words.push("37-tcpwrapped");
+words.push("1-ProFTPD");
+words.push("4-FlexLM");
+words.push("48-Microsoft");
+words.push("2-hp-gsg");
+words.push("1-Microsoft");
+words.push("3-Unix");
+words.push("3-nfs");
+words.push("3-rpc");
+words.push("1-rpc");
+words.push("4-Linux");
+words.push("3-router");
+words.push("8-print");
+words.push("1-IEEE");
+words.push("2-jetdirect");
+words.push("17-iTALC");
+words.push("5-SafeNet");
+validate();
+
+</script>
+</body>
+</html>
