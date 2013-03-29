@@ -3,7 +3,10 @@
 ###########
 
 PowerNmap is a set of tools which enable to synthesize the results from the Nmap program in order to quickly analyze network vulnerabilities.
-Nmap have to produce a XML output containing the information used by the scripts, otherwise they will not produce the expected results
+Nmap have to produce a XML output containing the information used by the scripts, otherwise they will not produce the expected results.
+We didn't found a enough efficient way to script CVE-SEARCH with our outputs.
+We chose to focus on the visual synthesis of nmap's results.
+
 
 Approach :
 ----------
@@ -57,4 +60,6 @@ La bibliothèque "d3" de "mbostock" est utilisée afin d'afficher les données
 Remarques :
 -----------
 Pour trouver facilement des vulnérabilités, les outils peuvent être associés à CVE-SEARCH (https://github.com/adulau/cve-search)
-Actuellement, cette approche n'a pas été très approfondie mais est quand même présente dans avec le script "pnm-extract-cpe.py"
+Actuellement, cette approche n'a pas été très approfondie mais est quand même présente avec le script "pnm-extract-cpe.py"
+Nous n'avons pas trouvé de moyen suffisamment efficace pour scripter CVE-SEARCH avec nos sorties.
+Nous avons préféré nous concentrer sur la synthèse visuelle des résultats de nmap...
