@@ -1,0 +1,56 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Usage :";
+	echo "  $0 dir : 	read from standard input and write resulting files in the 'dir' directory";
+	echo "  $0 dir file : 	read from 'file' and write resulting files in the 'dir' directory";
+	echo "Notes :";
+	echo "- input (file or standard input) is a list of hits for each vendor in TSV format"
+	echo "- warning : files already in the directory will be overwritten";
+	exit;
+fi
+
+ERROR=false;
+
+if [ ! -d $1 ]; then
+	echo "Error : '$1' is not a valid directory path";
+	ERROR=true;
+fi
+
+if [ ! -f $2 ]; then
+	echo "Error : '$2' is not a valid filename";
+	ERROR=true;
+fi
+
+if $ERROR; then
+	exit;
+fi
+
+# parameters mapping
+OUTPUT_DIR=$1
+INPUT_FILE=$2
+RESOURCES_DIR=`dirname $0`"/res"
+
+OUTPUT_FILE="$OUTPUT_DIR/words-cloud.html"
+
+# resource files copy
+for FILE in {"d3.min.js","d3.layout.cloud.js"}; do
+	cp "$RESOURCES_DIR/$FILE" "$OUTPUT_DIR/$FILE";
+done;
+
+create_html_file()
+{
+
+	cat $RESOURCES_DIR/words-cloud-begin.html
+
+	cat $INPUT_FILE | while read line; do
+		echo $line | awk -F' ' '{
+			print "words.push(\"" $1 "-" $2 "\");"
+		}'
+	done
+
+	cat $RESOURCES_DIR/words-cloud-end.html
+
+}
+
+create_html_file > $OUTPUT_FILE

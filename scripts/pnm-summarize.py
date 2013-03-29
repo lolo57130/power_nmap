@@ -13,7 +13,7 @@ def usage():
 	print 'generates a more human-readable output from a nmap XML output'
 	print ''
 	print 'usage : '
-	print '  pnm-summarize.py [-i <inputfile>] [-o <outputfile>] [-g]'
+	print '  pnm-summarize.py [-i <inputfile>] [-o <outputfile>]'
 	print '  pnm-summarize.py [--ifile <inputfile>] [--ofile <outputfile>]'
 	print ''
 	print 'if no input/output file is mentionned, the script will use standard input/output'
