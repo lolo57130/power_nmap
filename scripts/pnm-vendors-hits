@@ -38,8 +38,6 @@ for FILE in {"d3.min.js","vendors-hits.html"}; do
 	cp "$RESOURCES_DIR/$FILE" "$OUTPUT_DIR/$FILE";
 done;
 
-# grep portid $INPUT_FILE | cut -d ' ' -f3 | cut -d '"' -f2 | sort -n | uniq -c | awk -F' ' '{ print $1 " " $2 }' | sed -e 's/ /\t/g' >> $OUTPUT_FILE
-
 format_mac_addresses()
 {
 
