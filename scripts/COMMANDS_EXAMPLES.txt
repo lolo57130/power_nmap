@@ -1,0 +1,9 @@
+Commands that you can try :
+---------------------------
+
+Note : all these commands are lauched from the "scripts" directory
+
+
+./pnm-extract-mac.py -i ../xml_examples/better_example_without_down_hosts.xml -g | ./pnm-vendors-hits ../out/
+
+./pnm-summarize.py -i ../xml_examples/better_example_without_down_hosts.xml | ./pnm-ports-map ../out

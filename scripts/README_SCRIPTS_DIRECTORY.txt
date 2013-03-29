@@ -8,10 +8,22 @@ Names of the commands included in this project start with the "pnm-" suffix.
 
 This is a summary of different commands' utility :
 
+SHELL SCRIPTS (using Bash, AWK, ...)
+
 # pnm-ports-hits :
-	counts the number of hosts for each open port
-	it generates a text-file (in tabulation separated values format) with a HTML page for a graphical visualization in specified folder
+	counts the number of hosts for each openned port
+	it generates a text-file (in TSV : tabulation separated values format) with a HTML page for a graphical visualization in specified folder
 	input : nmap XML file or nmap XML output from pipe
+	
+# pnm-vendor-hits :
+	generates a set of file (HTML page + TSV file) to visualize vendors of network interfaces which are presents in the network
+	input : output from the pnm-extract-mac.py script with the --group-by-vendor argument enabled
+
+# pnm-ports-map :
+	generates a set of file (HTML page + TSV file) to visualize all openned ports for each active host
+	input : output from the pnm-summarize.py script
+
+PYTHON SCRIPTS
 
 # pnm-extract-cpe.py :
 	extract the CPE (Common Plateform Enumeration) names in order to use them with CVE-SEARCH : python3 ./search.py -p <a_cpe_name>
@@ -27,7 +39,14 @@ This is a summary of different commands' utility :
 	input : nmap XML file or nmap XML output from pipe
 	output : a TSV text file (it will be overwritten if it exists) or the standard output
 
-
+# pnm-summarize.py :
+	produce a human readable output
+	it generates a tabulation separated values formatted output
+	input : nmap XML file or nmap XML output from pipe
+	output : a TSV text file (it will be overwritten if it exists) or the standard output
 
 possibles improvements :
-- replace the python xml.dom.minidom library by another to enhance performance
+- replace the python xml.dom.minidom library by another to enhance performance (a new sample XML file had been created to speed up the tests)
+- verify the format of outputs : it could exist a few residual space caracters between values in the TSV file outputs
+- make the ports-map visualization more readable
+

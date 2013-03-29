@@ -31,12 +31,27 @@ OUTPUT_DIR=$1
 INPUT_FILE=$2
 RESOURCES_DIR=`dirname $0`"/res"
 
-OUTPUT_FILE="$OUTPUT_DIR/ports-hits.tsv"
+OUTPUT_FILE="$OUTPUT_DIR/ports-map.tsv"
 
 # resource files copy
-for FILE in {"d3.min.js","ports-hits.html"}; do
+for FILE in {"d3.min.js","ports-map.html"}; do
 	cp "$RESOURCES_DIR/$FILE" "$OUTPUT_DIR/$FILE";
 done;
 
-echo "Hosts	Port" > $OUTPUT_FILE
-grep portid $INPUT_FILE | cut -d ' ' -f3 | cut -d '"' -f2 | sort -n | uniq -c | awk -F' ' '{ print $1 " " $2 }' | sed -e 's/ /\t/g' >> $OUTPUT_FILE
+produce_output()
+{
+	echo "Host	Port	Service"
+
+	cat $INPUT_FILE | while read line; do
+		echo $line | awk -F' ' '
+			{
+				split($1,bytes,".")
+				printf("%03d%03d%03d%03d",bytes[1],bytes[2],bytes[3],bytes[4])
+				print "	" $2 "	" $3
+			}
+		'
+	done
+}
+
+produce_output > $OUTPUT_FILE
+

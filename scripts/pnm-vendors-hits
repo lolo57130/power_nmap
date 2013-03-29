@@ -1,0 +1,69 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Usage :";
+	echo "  $0 dir : 	read from standard input and write resulting files in the 'dir' directory";
+	echo "  $0 dir file : 	read from 'file' and write resulting files in the 'dir' directory";
+	echo "Notes :";
+	echo "- input (file or standard input) is a list of hits for each vendor in TSV format"
+	echo "- warning : files already in the directory will be overwritten";
+	exit;
+fi
+
+ERROR=false;
+
+if [ ! -d $1 ]; then
+	echo "Error : '$1' is not a valid directory path";
+	ERROR=true;
+fi
+
+if [ ! -f $2 ]; then
+	echo "Error : '$2' is not a valid filename";
+	ERROR=true;
+fi
+
+if $ERROR; then
+	exit;
+fi
+
+# parameters mapping
+OUTPUT_DIR=$1
+INPUT_FILE=$2
+RESOURCES_DIR=`dirname $0`"/res"
+
+OUTPUT_FILE="$OUTPUT_DIR/vendors-hits.json"
+
+# resource files copy
+for FILE in {"d3.min.js","vendors-hits.html"}; do
+	cp "$RESOURCES_DIR/$FILE" "$OUTPUT_DIR/$FILE";
+done;
+
+# grep portid $INPUT_FILE | cut -d ' ' -f3 | cut -d '"' -f2 | sort -n | uniq -c | awk -F' ' '{ print $1 " " $2 }' | sed -e 's/ /\t/g' >> $OUTPUT_FILE
+
+format_mac_addresses()
+{
+
+	echo '{
+	"name": "MAC Addresses",
+	"children":
+	['
+
+	FIRST_LINE=true
+	cat $INPUT_FILE | while read line; do
+		if $FIRST_LINE; then
+			FIRST_LINE=false;
+		else
+			echo '		,'
+		fi
+		echo '		{'
+		echo -n "			"
+		echo $line | awk -F' ' '{ print "\"size\":" $1 ",\n			" "\"name\":\"" $2 "\"" }'
+		echo '		}'
+	done
+
+	echo '	]
+}'
+
+}
+
+format_mac_addresses > $OUTPUT_FILE
