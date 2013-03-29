@@ -1,5 +1,4 @@
 XML examples to produce :
 - an output with cpe tags, using for instance the command : nmap -sS -sV -oX output.xml 192.168.1.0/24
   LH : I can't publish the capture I used for the development because it contains confidential data (private computers' MAC address, etc.)
-
-An example will be publsh soon
+  JPD : An example will be published soon

@@ -8,4 +8,7 @@ Note : all these commands are lauched from the "scripts" directory
 
 ./pnm-summarize.py -i ../xml_examples/better_example_without_down_hosts.xml | ./pnm-ports-map ../out
 
+./pnm-extract-words.py -i ../xml_examples/better_example_without_down_hosts.xml | ./pnm-words-cloud ../out
+
 ./pnm-ports-hits ../out/ ../xml_examples/better_example.xml
+
