@@ -68,7 +68,7 @@ var svg = d3.select("body").append("svg")
 d3.tsv("ports-hits.tsv", function(error, data) {
 
   data.forEach(function(d) {
-    d.Port = +d.Port;
+    d.Hosts = +d.Hosts;
   });
 
   x.domain(data.map(function(d) { return d.Port; }));
